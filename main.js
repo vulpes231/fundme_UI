@@ -1,3 +1,5 @@
+import { connect } from "./utils/conn.js";
+
 document.addEventListener("DOMContentLoaded", function () {
   const connectWallet = document.getElementById("connect-wallet");
   const getBalance = document.getElementById("get-bal");
@@ -9,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   connectWallet.addEventListener("click", function (e) {
     e.preventDefault();
-    console.log("Connect wallet clicked");
+    connect();
   });
 
   getBalance.addEventListener("click", function (e) {
