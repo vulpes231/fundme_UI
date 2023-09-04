@@ -8,10 +8,20 @@ document.addEventListener("DOMContentLoaded", function () {
   const myInput = document.getElementById("my-input");
 
   let val;
+  let connected = false;
 
-  connectWallet.addEventListener("click", function (e) {
+  connectWallet.textContent = "Connect wallet";
+
+  connectWallet.addEventListener("click", async function (e) {
     e.preventDefault();
-    connect();
+    await connect(connected);
+    connected = true;
+    if (connected === true) {
+      connectWallet.textContent = "Connected";
+      connectWallet.style.backgroundColor = "blue";
+    } else {
+      connectWallet.textContent = "Connect wallet";
+    }
   });
 
   getBalance.addEventListener("click", function (e) {
@@ -20,11 +30,13 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log(!val ? 0 : val, "Get balance clicked");
     // console.log(val);
   });
+
   fundContract.addEventListener("click", function (e) {
     e.preventDefault();
     val = myInput.value;
     console.log(!val ? 0 : val, "Fund contract clicked");
   });
+
   withdrawFromContract.addEventListener("click", function (e) {
     e.preventDefault();
     val = myInput.value;
