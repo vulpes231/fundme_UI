@@ -62,6 +62,30 @@ export async function fund(ethAmount) {
   }
 }
 
+export async function getContractBalance() {
+  if (typeof window.ethereum !== "undefined") {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const bal = await provider.getBalance(contractAddress);
+
+    const walletBal = ethers.utils.formatEther(bal);
+    return walletBal;
+  }
+}
+
+export async function withdrawEth() {
+  if (typeof window.ethereum !== "undefined") {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const myContract = new ethers.Contract(contractAddress, abi, signer);
+    try {
+      const txRes = await myContract.withdraw();
+      await listenForTxMine(txRes, provider);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
 function listenForTxMine(txRes, provider) {
   console.log(`Mining ${txRes.hash}`);
   return new Promise((resolve, reject) => {

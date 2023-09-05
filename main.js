@@ -1,4 +1,11 @@
-import { connect, fund } from "./utils/conn.js";
+import {
+  connect,
+  fund,
+  getContractBalance,
+  withdrawEth,
+} from "./utils/conn.js";
+
+// getBalance
 
 document.addEventListener("DOMContentLoaded", function () {
   const connectWallet = document.getElementById("connect-wallet");
@@ -6,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const fundContract = document.getElementById("fund");
   const withdrawFromContract = document.getElementById("withdraw");
   const myInput = document.getElementById("my-input");
+  const balEl = document.querySelector(".bal");
 
   let val;
   let connected = false;
@@ -25,22 +33,20 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  getBalance.addEventListener("click", function (e) {
+  getBalance.addEventListener("click", async function (e) {
     e.preventDefault();
-    val = myInput.value;
-    console.log(!val ? 0 : val, "Get balance clicked");
+    const bal = await getContractBalance();
+    balEl.textContent = `Your contract balance: ${bal} ETH `;
   });
 
   fundContract.addEventListener("click", function (e) {
     e.preventDefault();
     fund(ethAmount);
-    // val = myInput.value;
-    // console.log(!val ? 0 : val, "Fund contract clicked");
   });
 
-  withdrawFromContract.addEventListener("click", function (e) {
+  withdrawFromContract.addEventListener("click", async function (e) {
     e.preventDefault();
-    val = myInput.value;
-    console.log(!val ? 0 : val, "Withdraw  clicked");
+    await withdrawEth();
+    console.log("Funds withdrawn");
   });
 });
