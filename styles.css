@@ -45,7 +45,7 @@ main {
   display: flex;
   flex-direction: column;
   min-height: calc(100vh - 130px);
-  padding: 1rem;
+  padding: 2rem;
 }
 
 form {
@@ -80,6 +80,16 @@ footer {
 
 footer h3 {
   text-align: center;
+}
+
+.error {
+  display: none;
+  color: red;
+}
+
+.success {
+  display: none;
+  color: green;
 }
 
 @media screen and (min-width: 760px) {

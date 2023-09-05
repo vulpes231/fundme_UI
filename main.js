@@ -1,4 +1,4 @@
-import { connect } from "./utils/conn.js";
+import { connect, fund } from "./utils/conn.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   const connectWallet = document.getElementById("connect-wallet");
@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let val;
   let connected = false;
+  let ethAmount;
 
   connectWallet.textContent = "Connect wallet";
 
@@ -28,13 +29,13 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
     val = myInput.value;
     console.log(!val ? 0 : val, "Get balance clicked");
-    // console.log(val);
   });
 
   fundContract.addEventListener("click", function (e) {
     e.preventDefault();
-    val = myInput.value;
-    console.log(!val ? 0 : val, "Fund contract clicked");
+    fund(ethAmount);
+    // val = myInput.value;
+    // console.log(!val ? 0 : val, "Fund contract clicked");
   });
 
   withdrawFromContract.addEventListener("click", function (e) {
